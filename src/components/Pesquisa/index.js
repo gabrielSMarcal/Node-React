@@ -5,7 +5,7 @@ import Input from "../Input"
 import { livros } from "./dadosPesquisa"
 
 const PesquisaContainer = styled.section`
-    background-image: linear-gradient(125deg, #002F52 35%, #326589 165%);
+    background-image: linear-gradient(125deg, #002F52 35%, #326589);
     color: #FFF;
     text-align: center;
     padding: 100px 0;
@@ -60,7 +60,6 @@ function Pesquisa() {
             onBlur={evento =>{
                 const textoDigitado = evento.target.value
                 const resultadoPesquisa = livros.filter(livro => livro.nome.includes(textoDigitado))
-
                 setLivrosPesquisados(resultadoPesquisa)
             }}/>
 
