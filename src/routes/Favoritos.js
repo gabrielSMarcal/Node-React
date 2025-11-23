@@ -1,11 +1,27 @@
 import styled from 'styled-components'
-import { getFavoritos } from '../services/favoritos'
 import { useEffect, useState } from 'react'
+
+import { getFavoritos } from '../services/favoritos'
+import imgCapa from '../assets/livro.png'
 
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background-image: linear-gradient(125deg, #002F52 35%, #326589);
+`
+
+const Titulo = styled.h2`
+  color: #FFF;
+  font-size: 36px;
+  text-align: center;
+  width: 100%;
+  padding-top: 35px
+`
+
+const ResultadoContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 const Resultado = styled.div`
@@ -16,7 +32,7 @@ const Resultado = styled.div`
   cursor: pointer;
   padding: 10px;
 
-  h3 {
+  p {
     width: 200px;
     text-align: left;
     margin-left: 20px;
@@ -47,13 +63,15 @@ function Favoritos() {
 
   return (
     <AppContainer>
-      <Resultado>
-        {favoritos.map((favorito) => (
-          <div key={favorito.id}>
-            <h3>{favorito.nome}</h3>
-          </div>
-        ))}
-      </Resultado>
+      <Titulo>Abaixo sua lista de Favoritos!</Titulo>
+      <ResultadoContainer>
+        { favoritos.length !== 0 ? favoritos.map(favorito => (
+          <Resultado key={favorito.id}>
+            <img src={imgCapa} alt={favorito.nome} />
+            <p>{favorito.nome}</p>
+          </Resultado>
+        )) : <p>Você não possui favoritos cadastrados.</p> }
+      </ResultadoContainer>
     </AppContainer>
   );
 }
