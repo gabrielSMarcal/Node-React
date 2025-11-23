@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 
 import Input from "../Input"
 import { getLivros } from "../../services/livros"
+import { postFavorito } from "../../services/favoritos"
+import imgCapa from '../../assets/livro.png'
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(125deg, #002F52 35%, #326589);
@@ -56,10 +58,18 @@ function Pesquisa() {
         const livrosAPI = await getLivros()
         setLivros(livrosAPI)
     }
-    
+
     useEffect(() => {
         fetchLivros()
     }, [])
+
+    async function adicionarFavorito(id) {
+
+        const nomeLivro = livros.find(livro => livro.id === id).nome
+        await postFavorito(id)
+
+        alert(`Livro ${nomeLivro} adicionado aos favoritos!`)
+    }
 
     return (
         <PesquisaContainer>
@@ -74,8 +84,8 @@ function Pesquisa() {
             }}/>
 
             {livrosPesquisados.map(livro => (
-                <Resultado key={livro.nome}>
-                    <img src={livro.src} alt='capa'/>
+                <Resultado key={livro.nome} onClick={() => adicionarFavorito(livro.id)}>
+                    <img src={imgCapa} alt='capa'/>
                     <p>{livro.nome}</p>
                 </Resultado>
             ))}
