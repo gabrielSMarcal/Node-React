@@ -52,14 +52,14 @@ function Pesquisa() {
     const [livrosPesquisados, setLivrosPesquisados] = useState([])
     const [livros, setLivros] = useState([])
 
-    useEffect(() => {
-        fetchLivros()
-    }, [])
-
     async function fetchLivros() {
         const livrosAPI = await getLivros()
         setLivros(livrosAPI)
     }
+    
+    useEffect(() => {
+        fetchLivros()
+    }, [])
 
     return (
         <PesquisaContainer>
